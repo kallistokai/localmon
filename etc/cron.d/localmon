@@ -1,0 +1,4 @@
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+
+# daily restart of atop at midnight
+* * * * * root /var/local/monitoring/monitoring.pl
