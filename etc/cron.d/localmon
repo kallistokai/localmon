@@ -1,4 +1,6 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
+SHELL=/bin/bash
 
-# daily restart of atop at midnight
-* * * * * root /var/local/monitoring/monitoring.pl
+* * * * * root /opt/localmon/usr/local/bin/compareCommandOutput.pl 'zpool status' compare normal 
+* * * * * root for i in {1..12}; do /opt/localmon/usr/local/bin/compareCommandOutput.pl lsblk save normal 30000; sleep 5; done
+* * * * * root for i in {1..12}; do /opt/localmon/usr/local/bin/compareCommandOutput.pl lsusb save normal 30000; sleep 5; done
