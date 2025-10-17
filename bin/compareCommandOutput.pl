@@ -6,6 +6,7 @@ use strict;
 use warnings;
 use IPC::Run qw(run);
 use Data::Dumper;
+use Fcntl qw(:flock);
 
 my $command = shift or die "ERROR: No command specified";
 print "INFO: command: $command\n";
@@ -13,12 +14,19 @@ my $mode = shift || 'compare';
 my $urgency = shift || 'normal';
 my $time = shift || 5000;
 
+my $refFileName = $command;
+$refFileName =~ s/\W/_/g;
+
+my $lockfile = "/run/compareCommandOutput.pl.$refFileName.lock";
+open my $file, ">", $lockfile or die $!;
+flock $file, LOCK_EX|LOCK_NB or die "ERROR: Unable to lock file $!";
 
 my $refOutputDir = "/var/local/localmon";
 print "INFO: refOutputDir: $refOutputDir\n";
 
 main(
      $command,
+     $refFileName,
      $mode,
      $refOutputDir,
      $urgency,
@@ -28,13 +36,12 @@ main(
 sub main
 {
     my $command = shift;
+    my $refFileName = shift;
     my $mode = shift;
     my $refOutputDir = shift;
     my $urgency = shift;
     my $time = shift;
 
-    my $refFileName = $command;
-    $refFileName =~ s/\W/_/g;
     my $refFilePath = "$refOutputDir/$refFileName";
     print "INFO: refFilePath: $refFilePath\n";
 
