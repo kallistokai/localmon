@@ -12,7 +12,7 @@ my $command = shift or die "ERROR: No command specified";
 print "INFO: command: $command\n";
 my $mode = shift || 'compare';
 my $urgency = shift || 'normal';
-my $time = shift || 5000;
+my $time = shift || 10000;
 
 my $refFileName = $command;
 $refFileName =~ s/\W/_/g;
