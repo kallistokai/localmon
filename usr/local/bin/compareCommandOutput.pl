@@ -11,7 +11,7 @@ my $command = shift or die "ERROR: No command specified";
 print "INFO: command: $command\n";
 my $mode = shift || 'compare';
 my $urgency = shift || 'normal';
-my $time = shift || 3000;
+my $time = shift || 5000;
 
 
 my $refOutputDir = "/var/local/localmon";
@@ -89,7 +89,7 @@ sub saveCommandOutput
     print OUT $stdout;
     close OUT;
 
-    print "INFO: Command output of '$command' successfully saved to '$refFilePath'."
+    print "INFO: Command output of '$command' successfully saved to '$refFilePath'\n"
 }
 
 sub notify
@@ -149,7 +149,7 @@ sub removeUninterestingLines
     {
         next unless $line =~ /^(\+|\-)/;
         next if $line =~ /^(\+\+\+|\-\-\-)/;
-        $line =~ s/-/\\-/g;
+        $line =~ s/-|\'/\\-/g;
         #print "LINE: $line\n";
         push @result, $line;
     }
