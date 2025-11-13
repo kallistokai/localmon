@@ -1,0 +1,3 @@
+#!/bin/bash
+
+zpool status | grep -v scanned | grep -v resilvered | grep -v repaired

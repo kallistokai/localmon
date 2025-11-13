@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/opt/localmon/bin/compareCommandOutput.pl '/opt/localmon/bin/zpool_status_localmon' save

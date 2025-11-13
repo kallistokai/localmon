@@ -14,7 +14,8 @@ my $mode = shift || 'compare';
 my $urgency = shift || 'normal';
 my $time = shift || 10000;
 
-my $refFileName = $command;
+my @parts = split /\//, $command;
+my $refFileName = pop @parts;
 $refFileName =~ s/\W/_/g;
 
 my $lockfile = "/run/compareCommandOutput.pl.$refFileName.lock";
