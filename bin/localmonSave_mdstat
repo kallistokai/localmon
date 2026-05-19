@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/opt/localmon/bin/compareCommandOutput.pl 'cat /proc/mdstat' save
